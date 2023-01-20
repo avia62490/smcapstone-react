@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom'
+import About from './pages/About'
+import Blog from './pages/Blog'
+import Contact from './pages/Contact'
+import Home from './pages/Home'
+import {Routes, Route} from 'react-router-dom'
+import NavBar from './NavBar'
 
 
 
@@ -11,7 +17,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
-    <App />
+  <NavBar />
+      <Routes>
+          <Route path ="/" element={<Home />} />
+          <Route path ="/about" element={<About />} />
+          <Route path ="/contact" element={<Contact />} />
+          <Route path ="/blog" element={<Blog />} />
+      </Routes>
+      {/* <App /> */}
   </BrowserRouter>
   </React.StrictMode>
 );
