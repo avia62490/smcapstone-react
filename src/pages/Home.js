@@ -1,7 +1,28 @@
 import React from 'react'
 
 export default function Home() {
+  const [products, setProducts] = React.useState([])
+
+    React.useEffect(() => {
+        fetch("http://localhost:3000/products")
+        .then(res => res.json())
+        .then(data => setProducts(data))
+    }, []);
+    console.log(products);
+
+    const productDisplay = products.map(product => {
+        return(
+            <div key={product.id}>
+                <h1 >{product.name}</h1>
+                <img src={product.image_url} alt=''/>
+                <h4>Price: ${product.price}</h4>
+                <hr/>
+            </div>
+        )
+    });
   return(
-    <div>HOME page</div>
+    <div className="App">
+        {productDisplay}
+    </div>
   )
 }
