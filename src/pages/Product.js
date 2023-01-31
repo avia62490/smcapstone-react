@@ -3,19 +3,19 @@ import { Routes, Route, useParams, useLocation } from 'react-router-dom';
 
 export default function Product() {
   let { state } = useLocation();
-  const [productId, setProductId] = useState(state.productId)
+  // const [productId, setProductId] = useState(state.productId)
   const [product, setProduct] = useState({})
-  console.log(state)
+  
 
   
 
     useEffect(() => {
-        fetch(`http://localhost:3000/products/${productId}`)
+        fetch(`http://localhost:3000/products/${state.productId}`)
         .then(res => res.json())
-        .then(data => setProduct(data))
-        console.log(product);
-    }, [productId]);
-
+        .then(data => setProduct(data));
+      }, [state.productId]);
+      
+      console.log(product);
     // const productDisplay = product.map(product => {
     //     return(
     //         <div key={product.id}>
@@ -30,7 +30,7 @@ export default function Product() {
   return(
     <div className="App">
         <h1>THIS IS A PRODUCT</h1>
-        
+        {product.name}
         {/* {productDisplay} */}
     </div>
   )
