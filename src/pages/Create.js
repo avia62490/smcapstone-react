@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import axios from 'axios'
 
 export default function Create() {
   const [newProduct, setNewProduct] = useState(
@@ -19,11 +20,13 @@ export default function Create() {
       }
     );
   };
-  console.log(newProduct)
+  // console.log(newProduct)
 
   function handleSubmit(event) {
     event.preventDefault()
     console.log(`New Product "${newProduct.name}" created`)
+    axios.post("http://localhost:3000/products", newProduct)
+      .then(res => console.log(res.data))
   };
 
   return(
