@@ -6,10 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom'
 import About from './pages/About'
 import Blog from './pages/Blog'
-import Contact from './pages/Contact'
+import Create from './pages/Create'
 import Home from './pages/Home'
 import Product from "./pages/Product"
-// import {About, Blog, Contact, Home, Product} from "./pages/"
+// import {About, Blog, Create, Home, Product} from "./pages/page.js"
 import {Routes, Route} from 'react-router-dom'
 import NavBar from './NavBar'
 
@@ -23,7 +23,7 @@ root.render(
       <Routes>
           <Route path ="/" element={<Home />} />
           <Route path ="/about" element={<About />} />
-          <Route path ="/contact" element={<Contact />} />
+          <Route path ="/create" element={<Create />} />
           <Route path ="/blog" element={<Blog />} />
           <Route path ="/products/:id" element={<Product/>} />
       </Routes>
