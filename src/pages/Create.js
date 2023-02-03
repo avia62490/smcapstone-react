@@ -10,7 +10,6 @@ export default function Create() {
   });
 
   function handleChange(event) {
-    // console.log(event)
     const {name, value} = event.target
       setNewProduct(prevNewProduct => {
           return {
@@ -20,7 +19,6 @@ export default function Create() {
       }
     );
   };
-  // console.log(newProduct)
 
   function handleSubmit(event) {
     event.preventDefault()
