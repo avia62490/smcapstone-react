@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 export default function Product() {
   let { state } = useLocation();
   const [product, setProduct] = useState({})
-  const [updateForm, setUpdateForm] = useState(false)
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false)
   const [updatedProduct, setUpdatedProduct] = useState({})
 
   useEffect(() => {
@@ -14,11 +14,20 @@ export default function Product() {
     }, [state.productId]);
 
   function showUpdateForm() {
-    setUpdateForm(prevUpdateForm => !prevUpdateForm)
+    setIsUpdateFormVisible(prevUpdateForm => !prevUpdateForm)
   };
 
-  function handleUpdate() {
-    axios.patch(`http://localhost:3000/products/${state.productId}`, updatedProduct)
+  const handleUpdate = async(event) => {
+    event.preventDefault()
+    try {
+      const result = await axios.patch(`http://localhost:3000/products/${state.productId}`, updatedProduct)
+      setProduct(result.data)
+      setUpdatedProduct({})
+      setIsUpdateFormVisible(false)
+
+    } catch(error) {
+      console.log(error)
+    }
   };
 
   function handleChange(event) {
@@ -74,8 +83,8 @@ export default function Product() {
       <img src={product.image_url} alt='' width='500px'/>
       <h5>{product.description}</h5>
       <h4>${product.price}</h4>
-      <button onClick={showUpdateForm}>Update</button>
-      {updateForm && updateDisplay}
+      { !isUpdateFormVisible && <button onClick={showUpdateForm}>Edit</button>}
+      {isUpdateFormVisible && updateDisplay}
     </div>
   );
 }
