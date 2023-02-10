@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom';
+import { useParams, redirect, useNavigate } from 'react-router-dom';
 
 export default function Product() {
-  const [product, setProduct] = useState({})
-  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false)
-  const [updatedProduct, setUpdatedProduct] = useState({})
-
-  const { productId } = useParams()
+  const [product, setProduct] = useState({});
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+  const [updatedProduct, setUpdatedProduct] = useState({});
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
       axios.get(`http://localhost:3000/products/${productId}`)
       .then(res => setProduct(res.data))
-    }, []);
+    }, [productId]);
 
   function showUpdateForm() {
     setIsUpdateFormVisible(prevUpdateForm => !prevUpdateForm)
@@ -41,6 +42,12 @@ export default function Product() {
       }
     );
   };
+
+  function deleteProduct() {
+    console.log("deleting")
+    
+    navigate("/")
+  }
 
   const updateDisplay = 
   <div>
@@ -85,6 +92,7 @@ export default function Product() {
       <h5>{product.description}</h5>
       <h4>${product.price}</h4>
       { !isUpdateFormVisible && <button onClick={showUpdateForm}>Edit</button>}
+      <button onClick={deleteProduct}>Delete Product</button>
       {isUpdateFormVisible && updateDisplay}
     </div>
   );
