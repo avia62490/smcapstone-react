@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { useParams, redirect, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Product() {
   const [product, setProduct] = useState({});
@@ -44,9 +44,9 @@ export default function Product() {
   };
 
   function deleteProduct() {
-    console.log("deleting")
-    
-    navigate("/")
+    // console.log(`deleting product ${productId}`)
+    axios.delete(`http://localhost:3000/products/${productId}`)
+    .then(navigate("/"))
   }
 
   const updateDisplay = 
