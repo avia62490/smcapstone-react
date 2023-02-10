@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function Product() {
-  let { state } = useLocation();
   const [product, setProduct] = useState({})
   const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false)
   const [updatedProduct, setUpdatedProduct] = useState({})
 
+  const { productId } = useParams()
+
   useEffect(() => {
-      axios.get(`http://localhost:3000/products/${state.productId}`)
+      axios.get(`http://localhost:3000/products/${productId}`)
       .then(res => setProduct(res.data))
-    }, [state.productId]);
+    }, []);
 
   function showUpdateForm() {
     setIsUpdateFormVisible(prevUpdateForm => !prevUpdateForm)
@@ -20,7 +21,7 @@ export default function Product() {
   const handleUpdate = async(event) => {
     event.preventDefault()
     try {
-      const result = await axios.patch(`http://localhost:3000/products/${state.productId}`, updatedProduct)
+      const result = await axios.patch(`http://localhost:3000/products/${productId}`, updatedProduct)
       setProduct(result.data)
       setUpdatedProduct({})
       setIsUpdateFormVisible(false)
@@ -46,28 +47,28 @@ export default function Product() {
     <form className="form" onSubmit={handleUpdate}>
       <input 
         type='text'
-        placeholder={product.name}
+        placeholder="name"
         name='name'
         value={updatedProduct.name}
         onChange={handleChange}
       />
       <input 
         type='text'
-        placeholder={product.description}
+        placeholder="description"
         name='description'
         value={updatedProduct.description}
         onChange={handleChange}
       />
       <input 
         type='text'
-        placeholder={product.price}
+        placeholder="price"
         name='price'
         value={updatedProduct.price}
         onChange={handleChange}
       />
       <input 
         type='text'
-        placeholder={product.image_url}
+        placeholder="image_url"
         name='image_url'
         value={updatedProduct.image_url}
         onChange={handleChange}
